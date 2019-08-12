@@ -4,6 +4,7 @@ using System.Linq;
 using SharpShell.SharpPropertySheet;
 using Utils;
 using Module;
+using System.Windows.Forms;
 
 namespace PropPage_UI {
     public partial class PropPage : SharpPropertyPage {
@@ -57,10 +58,21 @@ namespace PropPage_UI {
             DateTime ut = new DateTime(updateDate.Year, updateDate.Month, updateDate.Day, updateTime.Hour, updateTime.Minute, updateTime.Second);
             DateTime at = new DateTime(accessDate.Year, accessDate.Month, accessDate.Day, accessTime.Hour, accessTime.Minute, accessTime.Second);
 
-
             FileTimes fileTimes = new FileTimes(ct: ct, ut: ut, at: at);
-            Util.SaveFileTimes(filePath, fileTimes);
+
+            if (!Util.SaveFileTimes(filePath, fileTimes)) { // if error
+                if (Util.isAdmin()) // error when has authority 
+                    showErrorAlert();
+                else { // no authority
+                    Util.getAdmin(); // TODO
+                    if (!Util.SaveFileTimes(filePath, fileTimes)) // error when has authority 
+                        showErrorAlert();
+                }
+            }
         }
+
+        private void showErrorAlert() =>
+            MessageBox.Show("ファイル日時の変更は失敗しました", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         #endregion // MainFunc
 

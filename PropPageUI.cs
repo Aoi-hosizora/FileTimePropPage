@@ -11,7 +11,7 @@ namespace PropPage_UI {
 
         #region 组件设计器生成的代码
 
-private void InitializeComponent()
+        private void InitializeComponent()
         {
             this.label_Create = new System.Windows.Forms.Label();
             this.label_Update = new System.Windows.Forms.Label();

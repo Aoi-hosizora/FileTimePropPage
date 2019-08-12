@@ -1,5 +1,8 @@
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Security.Principal;
+using System.Windows.Forms;
 using Module;
 
 namespace Utils {
@@ -18,12 +21,48 @@ namespace Utils {
         
         /// <summary>
         /// Set File Times Props
+        ///
+        ///     return: error?
         /// </summary>
-        public static void SaveFileTimes(string filePath, FileTimes fileTimes) {
-            FileInfo finfo = new FileInfo(filePath);
-            finfo.CreationTime = fileTimes.CreateTime;
-            finfo.LastWriteTime = fileTimes.UpdateTime;
-            finfo.LastAccessTime = fileTimes.AccessTime;
+        public static bool SaveFileTimes(string filePath, FileTimes fileTimes) {
+            try {
+                FileInfo finfo = new FileInfo(filePath);
+                finfo.CreationTime = fileTimes.CreateTime;
+                finfo.LastWriteTime = fileTimes.UpdateTime;
+                finfo.LastAccessTime = fileTimes.AccessTime;
+                return true;
+            }
+            catch (UnauthorizedAccessException) {
+                return false;
+            }
+            catch (Exception) {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Check have administrator authority
+        /// </summary>
+        public static bool isAdmin() {
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();  
+            WindowsPrincipal principal = new WindowsPrincipal(identity);  
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);  
+        }
+        
+        /// <summary>
+        /// Get administrator authority
+        /// </summary>
+        public static void getAdmin() {
+           // ProcessStartInfo psi = new ProcessStartInfo();
+           // psi.FileName = Application.ExecutablePath;
+           // psi.Verb = "runas";
+           // try {
+           //     Process.Start(psi);
+           //     Application.Exit();
+           // }
+           // catch (Exception ex) {
+           //     MessageBox.Show(ex.Message);
+           // }
         }
     }
 }

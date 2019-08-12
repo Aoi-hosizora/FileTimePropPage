@@ -18,6 +18,6 @@ cp ./FileTimePropPage.dll ../../../build/FileTimePropPage.dll
 cd ../../..
 regasm /codebase ./build/FileTimePropPage.dll
 
-::regasm /u ./build/FileTimePropPage.dll
+:: regasm /u ./build/FileTimePropPage.dll
 
 @echo on

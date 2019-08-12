@@ -59,6 +59,10 @@ regasm /u ./build/FileTimePropPage.dll
 # Restart explorer.exe
 ```
 
+### Problem
++ [ ] Apply button could not work well
++ [ ] Could not get administrator authority
+
 ### ScreenShot
 ![PropPage](./assets/PropPage.jpg)
 
