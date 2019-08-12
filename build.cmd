@@ -13,9 +13,11 @@ ildasm FileTimePropPage.dll /OUTPUT=FileTimePropPage.il
 ilasm FileTimePropPage.il /DLL /OUTPUT=FileTimePropPage.dll /KEY=key.snk
 
 :: Register
-cp ./publish/SharpShell.dll ./SharpShell.dll
-regasm /codebase FileTimePropPage.dll
+cp ./publish/SharpShell.dll ../../../build/SharpShell.dll
+cp ./FileTimePropPage.dll ../../../build/FileTimePropPage.dll
+cd ../../..
+regasm /codebase ./build/FileTimePropPage.dll
 
-:: regasm /u FileTimePropPage.dll
+::regasm /u ./build/FileTimePropPage.dll
 
 @echo on

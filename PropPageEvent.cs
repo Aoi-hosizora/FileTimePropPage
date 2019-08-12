@@ -7,31 +7,42 @@ using Module;
 
 namespace PropPage_UI {
     public partial class PropPage : SharpPropertyPage {
+        
         public PropPage() {
             InitializeComponent();
             PageTitle = "ファイル日時";
         }
 
         private string filePath { get; set; }
+        private FileTimes fileDateTimes { get; set; }
 
-        protected override void OnPropertyPageInitialised(SharpPropertySheet parent) {
-            filePath = parent.SelectedItemPaths.First();
-            FileTimes fileTimes = Util.LoadFileTimes(filePath);
+        #region Override
 
-            this.datePicker_Create.Value = fileTimes.CreateTime;
-            this.datePicker_Update.Value = fileTimes.UpdateTime;
-            this.datePicker_Access.Value = fileTimes.AccessTime;
-            
-            this.timePicker_Create.Value = fileTimes.CreateTime;
-            this.timePicker_Update.Value = fileTimes.UpdateTime;
-            this.timePicker_Access.Value = fileTimes.AccessTime;
-        }
+        protected override void OnPropertyPageInitialised(SharpPropertySheet parent) =>
+            initData(parent);
 
         protected override void OnPropertySheetApply() =>
             ApplyOK();
 
         protected override void OnPropertySheetOK() =>
             ApplyOK();
+
+        #endregion // Override
+
+        #region MainFunc
+
+        private void initData(SharpPropertySheet parent) {
+            filePath = parent.SelectedItemPaths.First();
+            fileDateTimes = Util.LoadFileTimes(filePath);
+
+            this.datePicker_Create.Value = fileDateTimes.CreateTime;
+            this.datePicker_Update.Value = fileDateTimes.UpdateTime;
+            this.datePicker_Access.Value = fileDateTimes.AccessTime;
+            
+            this.timePicker_Create.Value = fileDateTimes.CreateTime;
+            this.timePicker_Update.Value = fileDateTimes.UpdateTime;
+            this.timePicker_Access.Value = fileDateTimes.AccessTime;
+        }
 
         private void ApplyOK() {
             DateTime createDate, createTime, updateDate, updateTime, accessDate, accessTime;
@@ -51,8 +62,62 @@ namespace PropPage_UI {
             Util.SaveFileTimes(filePath, fileTimes);
         }
 
+        #endregion // MainFunc
+
+        #region UI_Buttons
+
         private void PropPage_Load(object sender, EventArgs e) {
             this.BackColor = Color.White;
         }
+
+        /// <summary>
+        /// 作成日時 復元
+        /// </summary>
+        private void button_Create_Recover_Click(object sender, EventArgs e) {
+            this.datePicker_Create.Value = fileDateTimes.CreateTime;
+            this.timePicker_Create.Value = fileDateTimes.CreateTime;
+        }
+
+        /// <summary>
+        /// 作成日時 今に
+        /// </summary>
+        private void button_Create_Now_Click(object sender, EventArgs e) {
+            this.datePicker_Create.Value = DateTime.Now;
+            this.timePicker_Create.Value = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 更新日時 復元
+        /// </summary>
+        private void button_Update_Recover_Click(object sender, EventArgs e) {
+            this.datePicker_Update.Value = fileDateTimes.UpdateTime;
+            this.timePicker_Update.Value = fileDateTimes.UpdateTime;
+        }
+
+        /// <summary>
+        /// 更新日時 今に
+        /// </summary>
+        private void button_Update_Now_Click(object sender, EventArgs e) {
+            this.datePicker_Update.Value = DateTime.Now;
+            this.timePicker_Update.Value = DateTime.Now;
+        }
+
+        /// <summary>
+        /// ｱｸｾｽ日時 復元
+        /// </summary>
+        private void button_Access_Recover_Click(object sender, EventArgs e) {
+            this.datePicker_Access.Value = fileDateTimes.AccessTime;
+            this.timePicker_Access.Value = fileDateTimes.AccessTime;
+        }
+
+        /// <summary>
+        /// ｱｸｾｽ日時 今に
+        /// </summary>
+        private void button_Access_Now_Click(object sender, EventArgs e) {
+            this.datePicker_Access.Value = DateTime.Now;
+            this.timePicker_Access.Value = DateTime.Now;
+        }
+
+        #endregion // UI_Buttons
     }
 }
