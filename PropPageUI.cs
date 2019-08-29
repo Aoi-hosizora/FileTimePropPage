@@ -66,6 +66,7 @@ namespace PropPage_UI {
             this.datePicker_Create.Name = "datePicker_Create";
             this.datePicker_Create.Size = new System.Drawing.Size(187, 23);
             this.datePicker_Create.TabIndex = 3;
+            this.datePicker_Create.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
             // 
             // timePicker_Create
             // 
@@ -76,6 +77,7 @@ namespace PropPage_UI {
             this.timePicker_Create.ShowUpDown = true;
             this.timePicker_Create.Size = new System.Drawing.Size(98, 23);
             this.timePicker_Create.TabIndex = 3;
+            this.timePicker_Create.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
             // 
             // datePicker_Update
             // 
@@ -84,6 +86,7 @@ namespace PropPage_UI {
             this.datePicker_Update.Name = "datePicker_Update";
             this.datePicker_Update.Size = new System.Drawing.Size(187, 23);
             this.datePicker_Update.TabIndex = 3;
+            this.datePicker_Update.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
             // 
             // timePicker_Update
             // 
@@ -94,6 +97,7 @@ namespace PropPage_UI {
             this.timePicker_Update.ShowUpDown = true;
             this.timePicker_Update.Size = new System.Drawing.Size(98, 23);
             this.timePicker_Update.TabIndex = 3;
+            this.timePicker_Update.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
             // 
             // datePicker_Access
             // 
@@ -102,6 +106,7 @@ namespace PropPage_UI {
             this.datePicker_Access.Name = "datePicker_Access";
             this.datePicker_Access.Size = new System.Drawing.Size(187, 23);
             this.datePicker_Access.TabIndex = 3;
+            this.datePicker_Access.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
             // 
             // timePicker_Access
             // 
@@ -112,6 +117,7 @@ namespace PropPage_UI {
             this.timePicker_Access.ShowUpDown = true;
             this.timePicker_Access.Size = new System.Drawing.Size(98, 23);
             this.timePicker_Access.TabIndex = 3;
+            this.timePicker_Access.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
             // 
             // button_Create_Recover
             // 

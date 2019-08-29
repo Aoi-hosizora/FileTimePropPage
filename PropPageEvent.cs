@@ -88,6 +88,7 @@ namespace PropPage_UI {
         private void button_Create_Recover_Click(object sender, EventArgs e) {
             this.datePicker_Create.Value = fileDateTimes.CreateTime;
             this.timePicker_Create.Value = fileDateTimes.CreateTime;
+            // SetPageDataChanged(true);
         }
 
         /// <summary>
@@ -96,6 +97,7 @@ namespace PropPage_UI {
         private void button_Create_Now_Click(object sender, EventArgs e) {
             this.datePicker_Create.Value = DateTime.Now;
             this.timePicker_Create.Value = DateTime.Now;
+            // SetPageDataChanged(true);
         }
 
         /// <summary>
@@ -104,6 +106,7 @@ namespace PropPage_UI {
         private void button_Update_Recover_Click(object sender, EventArgs e) {
             this.datePicker_Update.Value = fileDateTimes.UpdateTime;
             this.timePicker_Update.Value = fileDateTimes.UpdateTime;
+            // SetPageDataChanged(true);
         }
 
         /// <summary>
@@ -112,6 +115,7 @@ namespace PropPage_UI {
         private void button_Update_Now_Click(object sender, EventArgs e) {
             this.datePicker_Update.Value = DateTime.Now;
             this.timePicker_Update.Value = DateTime.Now;
+            // SetPageDataChanged(true);
         }
 
         /// <summary>
@@ -120,6 +124,7 @@ namespace PropPage_UI {
         private void button_Access_Recover_Click(object sender, EventArgs e) {
             this.datePicker_Access.Value = fileDateTimes.AccessTime;
             this.timePicker_Access.Value = fileDateTimes.AccessTime;
+            // SetPageDataChanged(true);
         }
 
         /// <summary>
@@ -128,6 +133,11 @@ namespace PropPage_UI {
         private void button_Access_Now_Click(object sender, EventArgs e) {
             this.datePicker_Access.Value = DateTime.Now;
             this.timePicker_Access.Value = DateTime.Now;
+            // SetPageDataChanged(true);
+        }
+
+        private void dateTimePicker_ValueChanged(object sender, EventArgs e) {
+            SetPageDataChanged(true);
         }
 
         #endregion // UI_Buttons
