@@ -121,6 +121,7 @@ namespace PropPage_UI {
             // 
             // button_Create_Recover
             // 
+            this.button_Create_Recover.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button_Create_Recover.Location = new System.Drawing.Point(218, 43);
             this.button_Create_Recover.Name = "button_Create_Recover";
             this.button_Create_Recover.Size = new System.Drawing.Size(75, 23);
@@ -131,6 +132,7 @@ namespace PropPage_UI {
             // 
             // button_Create_Now
             // 
+            this.button_Create_Now.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button_Create_Now.Location = new System.Drawing.Point(299, 44);
             this.button_Create_Now.Name = "button_Create_Now";
             this.button_Create_Now.Size = new System.Drawing.Size(75, 23);
@@ -141,6 +143,7 @@ namespace PropPage_UI {
             // 
             // button_Update_Recover
             // 
+            this.button_Update_Recover.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button_Update_Recover.Location = new System.Drawing.Point(218, 117);
             this.button_Update_Recover.Name = "button_Update_Recover";
             this.button_Update_Recover.Size = new System.Drawing.Size(75, 23);
@@ -151,6 +154,7 @@ namespace PropPage_UI {
             // 
             // button_Update_Now
             // 
+            this.button_Update_Now.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button_Update_Now.Location = new System.Drawing.Point(299, 118);
             this.button_Update_Now.Name = "button_Update_Now";
             this.button_Update_Now.Size = new System.Drawing.Size(75, 23);
@@ -161,6 +165,7 @@ namespace PropPage_UI {
             // 
             // button_Access_Recover
             // 
+            this.button_Access_Recover.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button_Access_Recover.Location = new System.Drawing.Point(218, 191);
             this.button_Access_Recover.Name = "button_Access_Recover";
             this.button_Access_Recover.Size = new System.Drawing.Size(75, 23);
@@ -171,6 +176,7 @@ namespace PropPage_UI {
             // 
             // button_Access_Now
             // 
+            this.button_Access_Now.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button_Access_Now.Location = new System.Drawing.Point(299, 192);
             this.button_Access_Now.Name = "button_Access_Now";
             this.button_Access_Now.Size = new System.Drawing.Size(75, 23);
