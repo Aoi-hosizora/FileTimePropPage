@@ -1,5 +1,7 @@
-﻿using SharpShell.SharpPropertySheet;
+﻿using Microsoft.Win32;
+using SharpShell.SharpPropertySheet;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -26,24 +28,17 @@ namespace FileTimePropPage.Extension {
         }
 
         private string selectedFilepath;
-        private DateTime selectedFileCt;
-        private DateTime selectedFileUt;
-        private DateTime selectedFileAt;
 
         private void Initialize(SharpPropertySheet parent) {
             selectedFilepath = parent.SelectedItemPaths.First();
 
             var info = new FileInfo(selectedFilepath);
-            selectedFileCt = info.CreationTime;
-            selectedFileUt = info.LastWriteTime;
-            selectedFileAt = info.LastAccessTime;
-
-            DpCreate.Value = selectedFileCt;
-            TpCreate.Value = selectedFileCt;
-            DpUpdate.Value = selectedFileUt;
-            TpUpdate.Value = selectedFileUt;
-            DpAccess.Value = selectedFileAt;
-            TpAccess.Value = selectedFileAt;
+            DpCreate.Value = info.CreationTime;
+            TpCreate.Value = info.CreationTime;
+            DpUpdate.Value = info.LastWriteTime;
+            TpUpdate.Value = info.LastWriteTime;
+            DpAccess.Value = info.LastAccessTime;
+            TpAccess.Value = info.LastAccessTime;
         }
 
         private void ApplyOrOK() {
@@ -54,19 +49,31 @@ namespace FileTimePropPage.Extension {
             var at = new DateTime(DpAccess.Value.Year, DpAccess.Value.Month, DpAccess.Value.Day,
                 TpAccess.Value.Hour, TpAccess.Value.Minute, TpAccess.Value.Second);
 
-            try {
-                var info = new FileInfo(selectedFilepath) {
-                    CreationTime = ct,
-                    LastWriteTime = ut,
-                    LastAccessTime = at
-                };
-                selectedFileCt = ct;
-                selectedFileUt = ut;
-                selectedFileAt = at;
-            } catch (Exception ex) {
-                MessageBox.Show(new Form { TopMost = true }, $"ファイル日時の変更は失敗しました。詳細：\n{ex}",
-                    "ファイル日時", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            // get implementation executable file
+            var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AoiHosizora\FileTimePropPage");
+            if (key == null) {
+                MessageBox.Show(new Form { TopMost = true }, @"You have not set FileTimePropPage's registry setting, please check the Implementation key from HKEY_CURRENT_USER\SOFTWARE\AoiHosizora\FileTimePropPage.",
+                   "Mp3CoverDroper", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+            var executablePath = key.GetValue("Implementation") as string;
+            executablePath = executablePath.Trim('"');
+            if (string.IsNullOrWhiteSpace(executablePath) || !File.Exists(executablePath)) {
+                MessageBox.Show(new Form { TopMost = true }, @"FileTimePropPage's implementation application file is not found, please check the Implementation key from HKEY_CURRENT_USER\SOFTWARE\AoiHosizora\FileTimePropPage.",
+                   "Mp3CoverDroper", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // call implementation
+            var format = "yyyy-MM-ddTHH:mm:ss";
+            var args = new string[] { selectedFilepath, ct.ToString(format), ut.ToString(format), at.ToString(format) };
+            var process = new Process();
+            var info = new ProcessStartInfo(executablePath, string.Join(" ", args)) {
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+            process.StartInfo = info;
+            process.Start();
         }
 
         private void DateTimePicker_ValueChanged(object sender, EventArgs e) {
@@ -74,8 +81,9 @@ namespace FileTimePropPage.Extension {
         }
 
         private void BtnCreateRestore_Click(object sender, EventArgs e) {
-            DpCreate.Value = selectedFileCt;
-            TpCreate.Value = selectedFileCt;
+            var info = new FileInfo(selectedFilepath);
+            DpCreate.Value = info.CreationTime;
+            TpCreate.Value = info.CreationTime;
             SetPageDataChanged(true);
         }
 
@@ -87,8 +95,9 @@ namespace FileTimePropPage.Extension {
         }
 
         private void BtnUpdateRestore_Click(object sender, EventArgs e) {
-            DpUpdate.Value = selectedFileUt;
-            TpUpdate.Value = selectedFileUt;
+            var info = new FileInfo(selectedFilepath);
+            DpUpdate.Value = info.LastWriteTime;
+            TpUpdate.Value = info.LastWriteTime;
             SetPageDataChanged(true);
         }
 
@@ -100,8 +109,9 @@ namespace FileTimePropPage.Extension {
         }
 
         private void BtnAccessRestore_Click(object sender, EventArgs e) {
-            DpAccess.Value = selectedFileAt;
-            TpAccess.Value = selectedFileAt;
+            var info = new FileInfo(selectedFilepath);
+            DpAccess.Value = info.LastAccessTime;
+            TpAccess.Value = info.LastAccessTime;
             SetPageDataChanged(true);
         }
 

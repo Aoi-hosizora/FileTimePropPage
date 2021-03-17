@@ -1,6 +1,6 @@
 # FileTimePropPage
 
-+ A windows shell extension that is used to change file's create/update/access time through property page.
++ A windows shell extension that is used to change file's create/update/access time through property page (in Japanese).
 + Development environment: `.NET Framework 4.8` `Windows 10 20H2` `VS2019`.
 
 ### Dependencies
@@ -12,10 +12,17 @@
 + If you are using command line tool such as `dotnet cli`:
 
 ```bash
+# FileTimePropPage.Extension project
 cd FileTimePropPage.Extension
 rm bin/ obj/ -rf
 dotnet msbuild -property:Configuration=Release -property:Platform=x64
 # -> FileTimePropPage.Extension\bin\x64\Release\FileTimePropPage.Extension.dll
+
+# FileTimePropPage.Implementation project
+cd FileTimePropPage.Implementation
+rm bin/ obj/ -rf
+dotnet msbuild -property:Configuration=Release -property:Platform=x64
+# -> FileTimePropPage.Implementation\bin\x64\Release\FileTimePropPage.Implementation.exe
 ```
 
 + If you are using Visual Studio:
@@ -44,6 +51,16 @@ regasm /codebase FileTimePropPage.Extension.dll # register
 # Note that before replace the dll, you need to unregister it first !!!
 ```
 
++ Finally, setup registry for FileTimePropPage.Implementation.
+
+```reg
+; Use RegisterImpl.reg
+
+; Note to replace to your FileTimePropPage.Implementation.exe path.
+[HKEY_CURRENT_USER\SOFTWARE\AoiHosizora\FileTimePropPage]
+"Implementation"="\"E:\\Projects\\FileTimePropPage\\FileTimePropPage.Implementation\\bin\\x64\\Release\\FileTimePropPage.Implementation.exe\""
+```
+
 ### Unregister
 
 + Open cmd as administrator.
@@ -58,7 +75,8 @@ regasm /u FileTimePropPage.Extension.dll # unregister
 
 ### Screenshots
 
-![screenshot1](./assets/screenshot1.png)
+|![screenshot1](./assets/screenshot1.png)|![screenshot2](./assets/screenshot2.png)|
+|---|---|
 
 ### References
 
