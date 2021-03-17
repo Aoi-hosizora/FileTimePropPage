@@ -36,69 +36,75 @@
             this.DpCreate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DpCreate.CustomFormat = "";
-            this.DpCreate.Location = new System.Drawing.Point(16, 26);
+            this.DpCreate.Location = new System.Drawing.Point(12, 26);
             this.DpCreate.Name = "DpCreate";
-            this.DpCreate.Size = new System.Drawing.Size(227, 23);
+            this.DpCreate.Size = new System.Drawing.Size(233, 23);
             this.DpCreate.TabIndex = 1;
+            this.DpCreate.ValueChanged += new System.EventHandler(this.DateTimePicker_ValueChanged);
             // 
             // TpCreate
             // 
             this.TpCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TpCreate.CustomFormat = "";
             this.TpCreate.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.TpCreate.Location = new System.Drawing.Point(253, 26);
+            this.TpCreate.Location = new System.Drawing.Point(251, 26);
             this.TpCreate.Name = "TpCreate";
             this.TpCreate.ShowUpDown = true;
-            this.TpCreate.Size = new System.Drawing.Size(106, 23);
+            this.TpCreate.Size = new System.Drawing.Size(110, 23);
             this.TpCreate.TabIndex = 2;
+            this.TpCreate.ValueChanged += new System.EventHandler(this.DateTimePicker_ValueChanged);
             // 
             // DpUpdate
             // 
             this.DpUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DpUpdate.CustomFormat = "";
-            this.DpUpdate.Location = new System.Drawing.Point(16, 26);
+            this.DpUpdate.Location = new System.Drawing.Point(12, 26);
             this.DpUpdate.Name = "DpUpdate";
-            this.DpUpdate.Size = new System.Drawing.Size(227, 23);
+            this.DpUpdate.Size = new System.Drawing.Size(233, 23);
             this.DpUpdate.TabIndex = 5;
+            this.DpUpdate.ValueChanged += new System.EventHandler(this.DateTimePicker_ValueChanged);
             // 
             // TpUpdate
             // 
             this.TpUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TpUpdate.CustomFormat = "";
             this.TpUpdate.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.TpUpdate.Location = new System.Drawing.Point(253, 26);
+            this.TpUpdate.Location = new System.Drawing.Point(251, 26);
             this.TpUpdate.Name = "TpUpdate";
             this.TpUpdate.ShowUpDown = true;
-            this.TpUpdate.Size = new System.Drawing.Size(106, 23);
+            this.TpUpdate.Size = new System.Drawing.Size(110, 23);
             this.TpUpdate.TabIndex = 6;
+            this.TpUpdate.ValueChanged += new System.EventHandler(this.DateTimePicker_ValueChanged);
             // 
             // DpAccess
             // 
             this.DpAccess.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DpAccess.CustomFormat = "";
-            this.DpAccess.Location = new System.Drawing.Point(16, 26);
+            this.DpAccess.Location = new System.Drawing.Point(12, 26);
             this.DpAccess.Name = "DpAccess";
-            this.DpAccess.Size = new System.Drawing.Size(227, 23);
+            this.DpAccess.Size = new System.Drawing.Size(233, 23);
             this.DpAccess.TabIndex = 9;
+            this.DpAccess.ValueChanged += new System.EventHandler(this.DateTimePicker_ValueChanged);
             // 
             // TpAccess
             // 
             this.TpAccess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TpAccess.CustomFormat = "";
             this.TpAccess.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.TpAccess.Location = new System.Drawing.Point(253, 26);
+            this.TpAccess.Location = new System.Drawing.Point(251, 26);
             this.TpAccess.Name = "TpAccess";
             this.TpAccess.ShowUpDown = true;
-            this.TpAccess.Size = new System.Drawing.Size(106, 23);
+            this.TpAccess.Size = new System.Drawing.Size(110, 23);
             this.TpAccess.TabIndex = 10;
+            this.TpAccess.ValueChanged += new System.EventHandler(this.DateTimePicker_ValueChanged);
             // 
             // BtnCreateRestore
             // 
             this.BtnCreateRestore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnCreateRestore.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.BtnCreateRestore.Location = new System.Drawing.Point(207, 55);
+            this.BtnCreateRestore.Location = new System.Drawing.Point(213, 55);
             this.BtnCreateRestore.Name = "BtnCreateRestore";
             this.BtnCreateRestore.Size = new System.Drawing.Size(71, 25);
             this.BtnCreateRestore.TabIndex = 3;
@@ -110,7 +116,7 @@
             // 
             this.BtnCreateNow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnCreateNow.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.BtnCreateNow.Location = new System.Drawing.Point(288, 55);
+            this.BtnCreateNow.Location = new System.Drawing.Point(290, 55);
             this.BtnCreateNow.Name = "BtnCreateNow";
             this.BtnCreateNow.Size = new System.Drawing.Size(71, 25);
             this.BtnCreateNow.TabIndex = 4;
@@ -122,7 +128,7 @@
             // 
             this.BtnUpdateRestore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnUpdateRestore.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.BtnUpdateRestore.Location = new System.Drawing.Point(207, 55);
+            this.BtnUpdateRestore.Location = new System.Drawing.Point(213, 55);
             this.BtnUpdateRestore.Name = "BtnUpdateRestore";
             this.BtnUpdateRestore.Size = new System.Drawing.Size(71, 25);
             this.BtnUpdateRestore.TabIndex = 7;
@@ -134,7 +140,7 @@
             // 
             this.BtnUpdateNow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnUpdateNow.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.BtnUpdateNow.Location = new System.Drawing.Point(288, 55);
+            this.BtnUpdateNow.Location = new System.Drawing.Point(290, 55);
             this.BtnUpdateNow.Name = "BtnUpdateNow";
             this.BtnUpdateNow.Size = new System.Drawing.Size(71, 25);
             this.BtnUpdateNow.TabIndex = 8;
@@ -146,7 +152,7 @@
             // 
             this.BtnAccessRestore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnAccessRestore.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.BtnAccessRestore.Location = new System.Drawing.Point(207, 55);
+            this.BtnAccessRestore.Location = new System.Drawing.Point(213, 55);
             this.BtnAccessRestore.Name = "BtnAccessRestore";
             this.BtnAccessRestore.Size = new System.Drawing.Size(71, 25);
             this.BtnAccessRestore.TabIndex = 11;
@@ -158,7 +164,7 @@
             // 
             this.BtnAccessNow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnAccessNow.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.BtnAccessNow.Location = new System.Drawing.Point(288, 55);
+            this.BtnAccessNow.Location = new System.Drawing.Point(290, 55);
             this.BtnAccessNow.Name = "BtnAccessNow";
             this.BtnAccessNow.Size = new System.Drawing.Size(71, 25);
             this.BtnAccessNow.TabIndex = 12;
@@ -174,9 +180,9 @@
             this.GpbCreate.Controls.Add(this.DpCreate);
             this.GpbCreate.Controls.Add(this.BtnCreateNow);
             this.GpbCreate.Controls.Add(this.BtnCreateRestore);
-            this.GpbCreate.Location = new System.Drawing.Point(13, 13);
+            this.GpbCreate.Location = new System.Drawing.Point(12, 12);
             this.GpbCreate.Name = "GpbCreate";
-            this.GpbCreate.Size = new System.Drawing.Size(371, 90);
+            this.GpbCreate.Size = new System.Drawing.Size(373, 90);
             this.GpbCreate.TabIndex = 0;
             this.GpbCreate.TabStop = false;
             this.GpbCreate.Text = "作成日時";
@@ -189,9 +195,9 @@
             this.GpbUpdate.Controls.Add(this.BtnUpdateNow);
             this.GpbUpdate.Controls.Add(this.DpUpdate);
             this.GpbUpdate.Controls.Add(this.BtnUpdateRestore);
-            this.GpbUpdate.Location = new System.Drawing.Point(13, 109);
+            this.GpbUpdate.Location = new System.Drawing.Point(12, 108);
             this.GpbUpdate.Name = "GpbUpdate";
-            this.GpbUpdate.Size = new System.Drawing.Size(371, 90);
+            this.GpbUpdate.Size = new System.Drawing.Size(373, 90);
             this.GpbUpdate.TabIndex = 0;
             this.GpbUpdate.TabStop = false;
             this.GpbUpdate.Text = "更新日時";
@@ -204,9 +210,9 @@
             this.GpbAccess.Controls.Add(this.BtnAccessNow);
             this.GpbAccess.Controls.Add(this.BtnAccessRestore);
             this.GpbAccess.Controls.Add(this.DpAccess);
-            this.GpbAccess.Location = new System.Drawing.Point(13, 205);
+            this.GpbAccess.Location = new System.Drawing.Point(12, 204);
             this.GpbAccess.Name = "GpbAccess";
-            this.GpbAccess.Size = new System.Drawing.Size(371, 90);
+            this.GpbAccess.Size = new System.Drawing.Size(373, 90);
             this.GpbAccess.TabIndex = 0;
             this.GpbAccess.TabStop = false;
             this.GpbAccess.Text = "ｱｸｾｽ日時";
@@ -221,7 +227,7 @@
             this.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "PropertyPage";
-            this.Size = new System.Drawing.Size(397, 439);
+            this.Size = new System.Drawing.Size(397, 471);
             this.GpbCreate.ResumeLayout(false);
             this.GpbUpdate.ResumeLayout(false);
             this.GpbAccess.ResumeLayout(false);

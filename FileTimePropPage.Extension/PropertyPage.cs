@@ -47,54 +47,69 @@ namespace FileTimePropPage.Extension {
         }
 
         private void ApplyOrOK() {
-            var ct = new DateTime(DpCreate.Value.Year, DpCreate.Value.Month, DpCreate.Value.Day, TpCreate.Value.Hour, TpCreate.Value.Minute, TpCreate.Value.Second);
-            var ut = new DateTime(DpUpdate.Value.Year, DpUpdate.Value.Month, DpUpdate.Value.Day, TpUpdate.Value.Hour, TpUpdate.Value.Minute, TpUpdate.Value.Second);
-            var at = new DateTime(DpAccess.Value.Year, DpAccess.Value.Month, DpAccess.Value.Day, TpAccess.Value.Hour, TpAccess.Value.Minute, TpAccess.Value.Second);
+            var ct = new DateTime(DpCreate.Value.Year, DpCreate.Value.Month, DpCreate.Value.Day,
+                TpCreate.Value.Hour, TpCreate.Value.Minute, TpCreate.Value.Second);
+            var ut = new DateTime(DpUpdate.Value.Year, DpUpdate.Value.Month, DpUpdate.Value.Day,
+                TpUpdate.Value.Hour, TpUpdate.Value.Minute, TpUpdate.Value.Second);
+            var at = new DateTime(DpAccess.Value.Year, DpAccess.Value.Month, DpAccess.Value.Day,
+                TpAccess.Value.Hour, TpAccess.Value.Minute, TpAccess.Value.Second);
 
             try {
-                var info = new FileInfo(selectedFilepath);
-                info.CreationTime = ct;
-                info.LastWriteTime = ut;
-                info.LastAccessTime = at;
+                var info = new FileInfo(selectedFilepath) {
+                    CreationTime = ct,
+                    LastWriteTime = ut,
+                    LastAccessTime = at
+                };
                 selectedFileCt = ct;
                 selectedFileUt = ut;
                 selectedFileAt = at;
-            } catch (Exception) {
-                MessageBox.Show(new Form { TopMost = true }, "ファイル日時の変更は失敗しました。", "ファイル日時", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } catch (Exception ex) {
+                MessageBox.Show(new Form { TopMost = true }, $"ファイル日時の変更は失敗しました。詳細：\n{ex}",
+                    "ファイル日時", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void DateTimePicker_ValueChanged(object sender, EventArgs e) {
+            SetPageDataChanged(true);
         }
 
         private void BtnCreateRestore_Click(object sender, EventArgs e) {
             DpCreate.Value = selectedFileCt;
             TpCreate.Value = selectedFileCt;
+            SetPageDataChanged(true);
         }
 
         private void BtnCreateNow_Click(object sender, EventArgs e) {
             var now = DateTime.Now;
             DpCreate.Value = now;
             TpCreate.Value = now;
+            SetPageDataChanged(true);
         }
 
         private void BtnUpdateRestore_Click(object sender, EventArgs e) {
             DpUpdate.Value = selectedFileUt;
             TpUpdate.Value = selectedFileUt;
+            SetPageDataChanged(true);
         }
 
         private void BtnUpdateNow_Click(object sender, EventArgs e) {
             var now = DateTime.Now;
             DpUpdate.Value = now;
             TpUpdate.Value = now;
+            SetPageDataChanged(true);
         }
 
         private void BtnAccessRestore_Click(object sender, EventArgs e) {
             DpAccess.Value = selectedFileAt;
             TpAccess.Value = selectedFileAt;
+            SetPageDataChanged(true);
         }
 
         private void BtnAccessNow_Click(object sender, EventArgs e) {
             var now = DateTime.Now;
             DpAccess.Value = now;
             TpAccess.Value = now;
+            SetPageDataChanged(true);
         }
     }
 }
