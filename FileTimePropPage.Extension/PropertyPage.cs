@@ -29,38 +29,48 @@ namespace FileTimePropPage.Extension {
 
         private string selectedFilepath;
 
+        /// <summary>
+        /// Initialize data from property sheet.
+        /// </summary>
+        /// <param name="parent"></param>
         private void Initialize(SharpPropertySheet parent) {
             selectedFilepath = parent.SelectedItemPaths.First();
-
-            var info = new FileInfo(selectedFilepath);
-            DpCreate.Value = info.CreationTime;
-            TpCreate.Value = info.CreationTime;
-            DpUpdate.Value = info.LastWriteTime;
-            TpUpdate.Value = info.LastWriteTime;
-            DpAccess.Value = info.LastAccessTime;
-            TpAccess.Value = info.LastAccessTime;
+            var (ct, ut, at) = GetFileDatetimes(selectedFilepath);
+            DpCreate.Value = ct;
+            TpCreate.Value = ct;
+            DpUpdate.Value = ut;
+            TpUpdate.Value = ut;
+            DpAccess.Value = at;
+            TpAccess.Value = at;
         }
 
+        /// <summary>
+        /// Click Apply or OK button.
+        /// </summary>
         private void ApplyOrOK() {
-            var ct = new DateTime(DpCreate.Value.Year, DpCreate.Value.Month, DpCreate.Value.Day,
-                TpCreate.Value.Hour, TpCreate.Value.Minute, TpCreate.Value.Second);
-            var ut = new DateTime(DpUpdate.Value.Year, DpUpdate.Value.Month, DpUpdate.Value.Day,
-                TpUpdate.Value.Hour, TpUpdate.Value.Minute, TpUpdate.Value.Second);
-            var at = new DateTime(DpAccess.Value.Year, DpAccess.Value.Month, DpAccess.Value.Day,
-                TpAccess.Value.Hour, TpAccess.Value.Minute, TpAccess.Value.Second);
+            // get datetimes and check
+            var ct = new DateTime(DpCreate.Value.Year, DpCreate.Value.Month, DpCreate.Value.Day, TpCreate.Value.Hour, TpCreate.Value.Minute, TpCreate.Value.Second);
+            var ut = new DateTime(DpUpdate.Value.Year, DpUpdate.Value.Month, DpUpdate.Value.Day, TpUpdate.Value.Hour, TpUpdate.Value.Minute, TpUpdate.Value.Second);
+            var at = new DateTime(DpAccess.Value.Year, DpAccess.Value.Month, DpAccess.Value.Day, TpAccess.Value.Hour, TpAccess.Value.Minute, TpAccess.Value.Second);
+            var (originCt, originUt, originAt) = GetFileDatetimes(selectedFilepath);
+            if (originCt == ct && originUt == ut && originAt == at) {
+                return;
+            }
 
             // get implementation executable file
             var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AoiHosizora\FileTimePropPage");
             if (key == null) {
-                MessageBox.Show(new Form { TopMost = true }, @"You have not set FileTimePropPage's registry setting, please check the Implementation key from HKEY_CURRENT_USER\SOFTWARE\AoiHosizora\FileTimePropPage.",
-                   "Mp3CoverDroper", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(new Form { TopMost = true },
+                    @"ファイル日時ページのレジストリ設定はまだ設置されていません。HKEY_CURRENT_USER\SOFTWARE\AoiHosizora\FileTimePropPage の Implementation キーを確認してください。",
+                    "ファイル日時", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             var executablePath = key.GetValue("Implementation") as string;
             executablePath = executablePath.Trim('"');
             if (string.IsNullOrWhiteSpace(executablePath) || !File.Exists(executablePath)) {
-                MessageBox.Show(new Form { TopMost = true }, @"FileTimePropPage's implementation application file is not found, please check the Implementation key from HKEY_CURRENT_USER\SOFTWARE\AoiHosizora\FileTimePropPage.",
-                   "Mp3CoverDroper", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(new Form { TopMost = true },
+                    @"ファイル日時ページの実現アプリケーションは見つかりません。HKEY_CURRENT_USER\SOFTWARE\AoiHosizora\FileTimePropPage の Implementation キーを確認してください。",
+                    "ファイル日時", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -68,12 +78,31 @@ namespace FileTimePropPage.Extension {
             var format = "yyyy-MM-ddTHH:mm:ss";
             var args = new string[] { selectedFilepath, ct.ToString(format), ut.ToString(format), at.ToString(format) };
             var process = new Process();
-            var info = new ProcessStartInfo(executablePath, string.Join(" ", args)) {
+            var psi = new ProcessStartInfo(executablePath, string.Join(" ", args)) {
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
-            process.StartInfo = info;
+            process.StartInfo = psi;
             process.Start();
+            // process.WaitForExit();
+
+            // TODO error
+            // var (currCt, currUt, currAt) = GetFileDatetimes(selectedFilepath);
+            // if (currCt != ct || currUt != ut || currAt != at) { }
+        }
+
+        /// <summary>
+        /// Return 3 datetimes from given filepath.
+        /// </summary>
+        private Tuple<DateTime, DateTime, DateTime> GetFileDatetimes(string filepath) {
+            var info = new FileInfo(filepath);
+            var ct = new DateTime(info.CreationTime.Year, info.CreationTime.Month, info.CreationTime.Day,
+                info.CreationTime.Hour, info.CreationTime.Minute, info.CreationTime.Second);
+            var ut = new DateTime(info.LastWriteTime.Year, info.LastWriteTime.Month, info.LastWriteTime.Day,
+                info.LastWriteTime.Hour, info.LastWriteTime.Minute, info.LastWriteTime.Second);
+            var at = new DateTime(info.LastAccessTime.Year, info.LastAccessTime.Month, info.LastAccessTime.Day,
+                info.LastAccessTime.Hour, info.LastAccessTime.Minute, info.LastAccessTime.Second);
+            return new Tuple<DateTime, DateTime, DateTime>(ct, ut, at);
         }
 
         private void DateTimePicker_ValueChanged(object sender, EventArgs e) {
@@ -81,9 +110,9 @@ namespace FileTimePropPage.Extension {
         }
 
         private void BtnCreateRestore_Click(object sender, EventArgs e) {
-            var info = new FileInfo(selectedFilepath);
-            DpCreate.Value = info.CreationTime;
-            TpCreate.Value = info.CreationTime;
+            var ct = GetFileDatetimes(selectedFilepath).Item1;
+            DpCreate.Value = ct;
+            TpCreate.Value = ct;
             SetPageDataChanged(true);
         }
 
@@ -95,9 +124,9 @@ namespace FileTimePropPage.Extension {
         }
 
         private void BtnUpdateRestore_Click(object sender, EventArgs e) {
-            var info = new FileInfo(selectedFilepath);
-            DpUpdate.Value = info.LastWriteTime;
-            TpUpdate.Value = info.LastWriteTime;
+            var ut = GetFileDatetimes(selectedFilepath).Item2;
+            DpUpdate.Value = ut;
+            TpUpdate.Value = ut;
             SetPageDataChanged(true);
         }
 
@@ -109,9 +138,9 @@ namespace FileTimePropPage.Extension {
         }
 
         private void BtnAccessRestore_Click(object sender, EventArgs e) {
-            var info = new FileInfo(selectedFilepath);
-            DpAccess.Value = info.LastAccessTime;
-            TpAccess.Value = info.LastAccessTime;
+            var at = GetFileDatetimes(selectedFilepath).Item3;
+            DpAccess.Value = at;
+            TpAccess.Value = at;
             SetPageDataChanged(true);
         }
 
